@@ -34,7 +34,7 @@ namespace TaskAPI.Controllers
 
             //return Ok(Mytodos);
 
-            var Mytodos = _todoRepository.AllTodos_Data();
+            var Mytodos = _todoRepository.AllTodos();
 
             if (id == null)
             {
