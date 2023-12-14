@@ -41,9 +41,6 @@ namespace TaskAPI.Services
             return todos;
         }
 
-        public List<Todo> AllTodos_Data()
-        {
-            throw new NotImplementedException();
-        }
+       
     }
 }

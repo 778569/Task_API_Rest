@@ -10,6 +10,6 @@ namespace TaskAPI.Services
     public interface ITodoRepository
     {
         List<Todo> AllTodos();
-        List<Todo> AllTodos_Data();
+        
     }
 }

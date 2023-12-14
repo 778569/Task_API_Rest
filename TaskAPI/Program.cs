@@ -15,7 +15,7 @@ internal class Program
         //builder.Services.Register();
         //builder.Services.AddScoped<TodoService, TodoService>();
 
-        builder.Services.AddScoped<ITodoRepository,TodoSQLService>();
+        builder.Services.AddScoped<ITodoRepository,TodoService>();
        
 
         var app = builder.Build();
