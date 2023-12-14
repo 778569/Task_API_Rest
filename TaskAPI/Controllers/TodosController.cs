@@ -11,10 +11,12 @@ namespace TaskAPI.Controllers
     public class TodosController : ControllerBase
     {
         private readonly TodoService _todoService;
+        private readonly ITodoRepository _todoRepository;
 
-        public TodosController(TodoService todoService)
+        public TodosController(ITodoRepository todoRepository)
         {
-            _todoService = todoService;
+            
+            _todoRepository = todoRepository;
         }
 
         [HttpGet("{id?}")]
@@ -22,7 +24,17 @@ namespace TaskAPI.Controllers
         public IActionResult GetTodos(int? id)
         {
 
-            var Mytodos = _todoService.AllTodos();
+            //var Mytodos = _todoRepository.AllTodos();
+
+            //if (id == null)
+            //{
+            //    return Ok(Mytodos);
+            //}
+            //Mytodos = Mytodos.Where(i => i.ID == id).ToList();
+
+            //return Ok(Mytodos);
+
+            var Mytodos = _todoRepository.AllTodos_Data();
 
             if (id == null)
             {

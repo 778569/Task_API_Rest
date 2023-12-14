@@ -13,7 +13,11 @@ internal class Program
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
         //builder.Services.Register();
-        builder.Services.AddScoped<TodoService, TodoService>();
+        //builder.Services.AddScoped<TodoService, TodoService>();
+
+        builder.Services.AddScoped<ITodoRepository,TodoSQLService>();
+       
+
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.
