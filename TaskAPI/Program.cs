@@ -1,3 +1,4 @@
+using TaskAPI.DataAccess;
 using TaskAPI.Services;
 
 internal class Program
@@ -15,8 +16,12 @@ internal class Program
         //builder.Services.Register();
         //builder.Services.AddScoped<TodoService, TodoService>();
 
-        builder.Services.AddScoped<ITodoRepository,TodoService>();
-       
+        //builder.Services.AddScoped<ITodoRepository, TodoService>();
+        builder.Services.AddDbContext<TodoDbContext>();
+
+        builder.Services.AddScoped<ITodoRepository, TodoSQLServerService>();
+
+
 
         var app = builder.Build();
 
