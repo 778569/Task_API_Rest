@@ -10,7 +10,7 @@ namespace TaskAPI.Controllers
     [ApiController]
     public class TodosController : ControllerBase
     {
-        private readonly TodoService _todoService;
+        //private readonly TodoService _todoService;
         private readonly ITodoRepository _todoRepository;
 
         public TodosController(ITodoRepository todoRepository)
