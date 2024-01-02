@@ -1,10 +1,10 @@
 ﻿using TaskAPI.Models;
 
-namespace TaskAPI.Services
+namespace TaskAPI.Services.Todos
 {
     public class TodoService : ITodoRepository
     {
-        public List<Todo> AllTodos() 
+        public List<Todo> AllTodos()
         {
             var todos = new List<Todo>();
 
@@ -41,6 +41,9 @@ namespace TaskAPI.Services
             return todos;
         }
 
-       
+        public Todo GetTodo(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

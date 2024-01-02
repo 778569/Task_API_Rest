@@ -1,5 +1,6 @@
 using TaskAPI.DataAccess;
-using TaskAPI.Services;
+using TaskAPI.Services.Authors;
+using TaskAPI.Services.Todos;
 
 internal class Program
 {
@@ -21,6 +22,7 @@ internal class Program
 
         builder.Services.AddScoped<ITodoRepository, TodoSQLServerService>();
 
+        builder.Services.AddScoped<IAuthorRepository, AuthorSqlServerService>();
 
 
         var app = builder.Build();
