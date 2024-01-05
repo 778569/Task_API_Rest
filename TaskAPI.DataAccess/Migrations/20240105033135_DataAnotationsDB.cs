@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace TaskAPI.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class AuthorEntityAndData : Migration
+    public partial class DataAnotationsDB : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -19,7 +19,10 @@ namespace TaskAPI.DataAccess.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    FullName = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    FullName = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    AddressNo = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
+                    Street = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
+                    City = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -32,8 +35,8 @@ namespace TaskAPI.DataAccess.Migrations
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Title = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: true),
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Due = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false),
@@ -52,13 +55,13 @@ namespace TaskAPI.DataAccess.Migrations
 
             migrationBuilder.InsertData(
                 table: "Authors",
-                columns: new[] { "Id", "FullName" },
+                columns: new[] { "Id", "AddressNo", "City", "FullName", "Street" },
                 values: new object[,]
                 {
-                    { 1, "Kavinda Bandara" },
-                    { 2, "Shakuni Samanmalee" },
-                    { 3, "Sam Don Karunarathne" },
-                    { 4, "Harshana Disanayake" }
+                    { 1, "45", "Alawwa", "Kavinda Bandara", "Street 1" },
+                    { 2, "21", "Jaffna", "Shakuni Samanmalee", "Street 2" },
+                    { 3, "72", "Kurunegala", "Sam Don Karunarathne", "Street 3" },
+                    { 4, "55", "Negombo", "Harshana Disanayake", "Street 1" }
                 });
 
             migrationBuilder.InsertData(
@@ -66,9 +69,9 @@ namespace TaskAPI.DataAccess.Migrations
                 columns: new[] { "ID", "AuthorId", "Created", "Description", "Due", "Status", "Title" },
                 values: new object[,]
                 {
-                    { 1, 1, new DateTime(2024, 1, 2, 16, 3, 33, 74, DateTimeKind.Local).AddTicks(2374), "You need to get your book", new DateTime(2024, 1, 7, 16, 3, 33, 74, DateTimeKind.Local).AddTicks(2390), 0, "Get Books for the school" },
-                    { 2, 1, new DateTime(2024, 1, 2, 16, 3, 33, 74, DateTimeKind.Local).AddTicks(2397), "You need to Super market", new DateTime(2024, 1, 7, 16, 3, 33, 74, DateTimeKind.Local).AddTicks(2397), 0, "Need to Vegitable - DB" },
-                    { 3, 2, new DateTime(2024, 1, 2, 16, 3, 33, 74, DateTimeKind.Local).AddTicks(2400), "You need to go to Studio", new DateTime(2024, 1, 7, 16, 3, 33, 74, DateTimeKind.Local).AddTicks(2400), 0, "Need to Camera - DB" }
+                    { 1, 1, new DateTime(2024, 1, 5, 9, 1, 35, 78, DateTimeKind.Local).AddTicks(5118), "You need to get your book", new DateTime(2024, 1, 10, 9, 1, 35, 78, DateTimeKind.Local).AddTicks(5135), 0, "Get Books for the school" },
+                    { 2, 1, new DateTime(2024, 1, 5, 9, 1, 35, 78, DateTimeKind.Local).AddTicks(5142), "You need to Super market", new DateTime(2024, 1, 10, 9, 1, 35, 78, DateTimeKind.Local).AddTicks(5143), 0, "Need to Vegitable - DB" },
+                    { 3, 2, new DateTime(2024, 1, 5, 9, 1, 35, 78, DateTimeKind.Local).AddTicks(5145), "You need to go to Studio", new DateTime(2024, 1, 10, 9, 1, 35, 78, DateTimeKind.Local).AddTicks(5146), 0, "Need to Camera - DB" }
                 });
 
             migrationBuilder.CreateIndex(

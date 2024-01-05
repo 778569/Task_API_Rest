@@ -1,3 +1,4 @@
+using AutoMapper;
 using TaskAPI.DataAccess;
 using TaskAPI.Services.Authors;
 using TaskAPI.Services.Todos;
@@ -24,6 +25,7 @@ internal class Program
 
         builder.Services.AddScoped<IAuthorRepository, AuthorSqlServerService>();
 
+        builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
         var app = builder.Build();
 

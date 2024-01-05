@@ -12,8 +12,8 @@ using TaskAPI.DataAccess;
 namespace TaskAPI.DataAccess.Migrations
 {
     [DbContext(typeof(TodoDbContext))]
-    [Migration("20240102103333_AuthorEntityAndData")]
-    partial class AuthorEntityAndData
+    [Migration("20240105033135_DataAnotationsDB")]
+    partial class DataAnotationsDB
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,9 +33,25 @@ namespace TaskAPI.DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("AddressNo")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
                     b.Property<string>("FullName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<string>("Street")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.HasKey("Id");
 
@@ -45,22 +61,34 @@ namespace TaskAPI.DataAccess.Migrations
                         new
                         {
                             Id = 1,
-                            FullName = "Kavinda Bandara"
+                            AddressNo = "45",
+                            City = "Alawwa",
+                            FullName = "Kavinda Bandara",
+                            Street = "Street 1"
                         },
                         new
                         {
                             Id = 2,
-                            FullName = "Shakuni Samanmalee"
+                            AddressNo = "21",
+                            City = "Jaffna",
+                            FullName = "Shakuni Samanmalee",
+                            Street = "Street 2"
                         },
                         new
                         {
                             Id = 3,
-                            FullName = "Sam Don Karunarathne"
+                            AddressNo = "72",
+                            City = "Kurunegala",
+                            FullName = "Sam Don Karunarathne",
+                            Street = "Street 3"
                         },
                         new
                         {
                             Id = 4,
-                            FullName = "Harshana Disanayake"
+                            AddressNo = "55",
+                            City = "Negombo",
+                            FullName = "Harshana Disanayake",
+                            Street = "Street 1"
                         });
                 });
 
@@ -79,7 +107,8 @@ namespace TaskAPI.DataAccess.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
 
                     b.Property<DateTime>("Due")
                         .HasColumnType("datetime2");
@@ -88,7 +117,9 @@ namespace TaskAPI.DataAccess.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
 
                     b.HasKey("ID");
 
@@ -101,9 +132,9 @@ namespace TaskAPI.DataAccess.Migrations
                         {
                             ID = 1,
                             AuthorId = 1,
-                            Created = new DateTime(2024, 1, 2, 16, 3, 33, 74, DateTimeKind.Local).AddTicks(2374),
+                            Created = new DateTime(2024, 1, 5, 9, 1, 35, 78, DateTimeKind.Local).AddTicks(5118),
                             Description = "You need to get your book",
-                            Due = new DateTime(2024, 1, 7, 16, 3, 33, 74, DateTimeKind.Local).AddTicks(2390),
+                            Due = new DateTime(2024, 1, 10, 9, 1, 35, 78, DateTimeKind.Local).AddTicks(5135),
                             Status = 0,
                             Title = "Get Books for the school"
                         },
@@ -111,9 +142,9 @@ namespace TaskAPI.DataAccess.Migrations
                         {
                             ID = 2,
                             AuthorId = 1,
-                            Created = new DateTime(2024, 1, 2, 16, 3, 33, 74, DateTimeKind.Local).AddTicks(2397),
+                            Created = new DateTime(2024, 1, 5, 9, 1, 35, 78, DateTimeKind.Local).AddTicks(5142),
                             Description = "You need to Super market",
-                            Due = new DateTime(2024, 1, 7, 16, 3, 33, 74, DateTimeKind.Local).AddTicks(2397),
+                            Due = new DateTime(2024, 1, 10, 9, 1, 35, 78, DateTimeKind.Local).AddTicks(5143),
                             Status = 0,
                             Title = "Need to Vegitable - DB"
                         },
@@ -121,9 +152,9 @@ namespace TaskAPI.DataAccess.Migrations
                         {
                             ID = 3,
                             AuthorId = 2,
-                            Created = new DateTime(2024, 1, 2, 16, 3, 33, 74, DateTimeKind.Local).AddTicks(2400),
+                            Created = new DateTime(2024, 1, 5, 9, 1, 35, 78, DateTimeKind.Local).AddTicks(5145),
                             Description = "You need to go to Studio",
-                            Due = new DateTime(2024, 1, 7, 16, 3, 33, 74, DateTimeKind.Local).AddTicks(2400),
+                            Due = new DateTime(2024, 1, 10, 9, 1, 35, 78, DateTimeKind.Local).AddTicks(5146),
                             Status = 0,
                             Title = "Need to Camera - DB"
                         });
@@ -132,12 +163,17 @@ namespace TaskAPI.DataAccess.Migrations
             modelBuilder.Entity("TaskAPI.Models.Todo", b =>
                 {
                     b.HasOne("TaskAPI.Models.Author", "Author")
-                        .WithMany()
+                        .WithMany("Todos")
                         .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Author");
+                });
+
+            modelBuilder.Entity("TaskAPI.Models.Author", b =>
+                {
+                    b.Navigation("Todos");
                 });
 #pragma warning restore 612, 618
         }
