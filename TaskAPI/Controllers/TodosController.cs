@@ -1,27 +1,31 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using TaskAPI.Models;
+using TaskAPI.Services.Models;
 using TaskAPI.Services.Todos;
 
 namespace TaskAPI.Controllers
 {
-    [Route("api/todos")]
+    [Route("api/authors/{authorid}/todos")]
     [ApiController]
     public class TodosController : ControllerBase
     {
         //private readonly TodoService _todoService;
         private readonly ITodoRepository _todoRepository;
+        private readonly IMapper _mapper;
 
-        public TodosController(ITodoRepository todoRepository)
+        public TodosController(ITodoRepository todoRepository, IMapper mapper)
         {
             
             _todoRepository = todoRepository;
+            _mapper = mapper;
         }
 
         [HttpGet]
 
-        public IActionResult GetTodos()
+        public ActionResult<ICollection<TodoDto>> GetTodos(int authorid)
         {
 
             //var Mytodos = _todoRepository.AllTodos();
@@ -34,7 +38,7 @@ namespace TaskAPI.Controllers
 
             //return Ok(Mytodos);
 
-            var Mytodos = _todoRepository.AllTodos();
+            var Mytodos = _todoRepository.AllTodos(authorid);
 
             //if (id == null)
             //{
@@ -42,18 +46,23 @@ namespace TaskAPI.Controllers
             //}
             //Mytodos = Mytodos.Where(i => i.ID == id).ToList();
 
-            return Ok(Mytodos);
+            var mapTodos = _mapper.Map<ICollection<TodoDto>>(Mytodos);
+
+            return Ok(mapTodos);
         }
 
         [HttpGet("{id?}")]
 
-        public IActionResult GetTodo(int id)
+        public IActionResult GetTodo(int authorid , int id)
         {
-            var todo = _todoRepository.GetTodo(id);
+            var todo = _todoRepository.GetTodo(authorid, id);
 
             if (todo is null)
                 return NotFound();
-            return Ok(todo);
+
+            var mapTodo = _mapper.Map<TodoDto>(todo);
+
+            return Ok(mapTodo);
         }
     }
 }

@@ -17,14 +17,14 @@ namespace TaskAPI.Services.Todos
             _todoDbContext = todoDbContext;
         }
 
-        public List<Todo> AllTodos()
+        public List<Todo> AllTodos(int authorid)
         {
-            return _todoDbContext.Todos.ToList();
+            return _todoDbContext.Todos.Where(t => t.AuthorId == authorid).ToList();
         }
 
-        public Todo? GetTodo(int id)
+        public Todo? GetTodo(int authorid , int id)
         {
-            return _todoDbContext.Todos.Find(id);
+            return _todoDbContext.Todos.FirstOrDefault(t=> t.AuthorId == authorid && t.ID == id);
         }
     }
 }
