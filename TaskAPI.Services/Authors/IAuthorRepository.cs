@@ -12,7 +12,7 @@ namespace TaskAPI.Services.Authors
 
         public List<Author> GetAllAuthors();
 
-        public List<Author> GetAllAuthors(string JobRole);
+        public List<Author> GetAllAuthors(string JobRole, string search);
 
         public Author GetAuthor(int id);
 
