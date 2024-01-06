@@ -21,9 +21,9 @@ namespace TaskAPI.Controllers
 
         [HttpGet]
 
-        public ActionResult<ICollection<AuthorDto>> GetAuthors()
+        public ActionResult<ICollection<AuthorDto>> GetAuthors([FromQuery] string jobRole)
         {
-            var Authors = _authorRepository.GetAllAuthors();
+            var Authors = _authorRepository.GetAllAuthors(jobRole);
 
 
             var mapperAuthors = _mapper.Map<ICollection<AuthorDto>>(Authors);

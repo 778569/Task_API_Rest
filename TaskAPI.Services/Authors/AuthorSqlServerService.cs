@@ -22,6 +22,18 @@ namespace TaskAPI.Services.Authors
             return _todoDbContext.Authors.ToList();
         }
 
+        public List<Author> GetAllAuthors(string JobRole)
+        {
+            if (string.IsNullOrEmpty(JobRole))
+            {
+                GetAllAuthors();
+            }
+
+            JobRole = JobRole.Trim();
+
+            return _todoDbContext.Authors.Where(a => a.JobRole == JobRole).ToList();
+        }
+
         public Author GetAuthor(int id)
         {
             return _todoDbContext.Authors.Find(id);
