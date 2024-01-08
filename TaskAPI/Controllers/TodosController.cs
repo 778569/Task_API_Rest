@@ -78,5 +78,23 @@ namespace TaskAPI.Controllers
 
             return CreatedAtRoute("GetTodo", new {authorid = authorid, id= AfterMap.ID}, AfterMap);
         }
+
+        [HttpPut("{todoId}")]
+
+        public IActionResult UpdateTodo(int authorid, int todoId ,UpdateTodoDto updateTodoDto)
+        {
+
+            var updatingTodo = _todoRepository.GetTodo(authorid, todoId);
+
+            if (updatingTodo is null)
+            {
+                return NotFound();
+            }
+
+            _mapper.Map(updateTodoDto, updatingTodo);
+            _todoRepository.UpdateTodo(updatingTodo);
+
+            return NoContent();
+        }
     }
 }
