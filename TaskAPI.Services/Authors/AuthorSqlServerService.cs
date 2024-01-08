@@ -17,6 +17,8 @@ namespace TaskAPI.Services.Authors
         {
             _todoDbContext = todoDbContext;
         }
+
+        
         public List<Author> GetAllAuthors()
         {
             return _todoDbContext.Authors.ToList();
@@ -54,5 +56,15 @@ namespace TaskAPI.Services.Authors
             return _todoDbContext.Authors.Find(id);
 
         }
+
+
+        public Author CreateAuthor(Author Author)
+        {
+            _todoDbContext.Authors.Add(Author);
+            _todoDbContext.SaveChanges();
+
+            return _todoDbContext.Authors.Find(Author.Id);
+        }
+
     }
 }
