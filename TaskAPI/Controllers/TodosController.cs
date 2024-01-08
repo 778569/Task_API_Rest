@@ -51,7 +51,7 @@ namespace TaskAPI.Controllers
             return Ok(mapTodos);
         }
 
-        [HttpGet("{id?}")]
+        [HttpGet("{id?}", Name ="GetTodo")]
 
         public IActionResult GetTodo(int authorid , int id)
         {
@@ -63,6 +63,20 @@ namespace TaskAPI.Controllers
             var mapTodo = _mapper.Map<TodoDto>(todo);
 
             return Ok(mapTodo);
+        }
+
+
+        [HttpPost]
+
+        public ActionResult<Todo> CreateTodo(int authorid , CreateTodoDto createTodoDto)
+        {
+            var beforemap = _mapper.Map<Todo>(createTodoDto);
+
+            var ReturnTodo = _todoRepository.CreateTodo(authorid, beforemap);
+
+            var AfterMap = _mapper.Map<TodoDto>(ReturnTodo);
+
+            return CreatedAtRoute("GetTodo", new {authorid = authorid, id= AfterMap.ID}, AfterMap);
         }
     }
 }
