@@ -15,5 +15,7 @@ namespace TaskAPI.Services.Todos
 
         Todo CreateTodo(int authorId, Todo todo);
 
+        void UpdateTodo(Todo todo);
+
     }
 }
