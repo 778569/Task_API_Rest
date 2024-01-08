@@ -96,5 +96,22 @@ namespace TaskAPI.Controllers
 
             return NoContent();
         }
+
+
+        [HttpDelete("{todoId}")]
+
+        public ActionResult DeleteTodo(int authorId, int todoId)
+        {
+            var deleteTodo = _todoRepository.GetTodo(authorId,todoId);
+
+            if (deleteTodo == null)
+            {
+                return NotFound();
+            }
+
+            _todoRepository.DeleteTodo(deleteTodo);
+
+            return NoContent();
+        }
     }
 }

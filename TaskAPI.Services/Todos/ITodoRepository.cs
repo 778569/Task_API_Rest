@@ -17,5 +17,6 @@ namespace TaskAPI.Services.Todos
 
         void UpdateTodo(Todo todo);
 
+        void DeleteTodo(Todo todo);
     }
 }
