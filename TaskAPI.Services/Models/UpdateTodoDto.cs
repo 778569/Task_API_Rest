@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +12,7 @@ namespace TaskAPI.Services.Models
     {
         //public int ID { get; set; }
 
+        [Required(ErrorMessage = "You Must enter a title fro the todo.!!!")]
         public string? Title { get; set; }
 
         public string? Description { get; set; }
